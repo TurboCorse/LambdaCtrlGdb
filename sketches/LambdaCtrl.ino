@@ -46,7 +46,7 @@ void setup()
 	pinMode(SP1_INPUT_PIN, INPUT_PULLUP);
 	pinMode(SP2_INPUT_PIN, INPUT_PULLUP);
 	
-	/* Change PWM frequency for heater pin */
+	/* Change PWM frequency for heater pin to 122Hz */
 	TCCR1B = 1 << CS12;
 	/* Set I2C frequency to 400kHz */
 	TWBR = ((F_CPU / 400000L) - 16) / 2;
@@ -148,8 +148,9 @@ void loop()
 		Serial.print("UR:");
 		Serial.println(In.UR);		
 		Serial.print("UA:");
-		Serial.println(In.UA);		
-	
+		Serial.println(In.UA);
+		Serial.print("IP:");
+		Serial.println(Cj.Ip);	
 #endif
 #if (DEBUG > 0)
 		Serial.print("Mode:");

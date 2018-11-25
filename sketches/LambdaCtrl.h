@@ -17,7 +17,7 @@
 #include <Wire.h>
 
 /* Define IO */
-#define CJ125_NSS_PIN                      10					/* Pin used for chip select in SPI communication. */
+#define CJ125_NSS_PIN                       10				/* Pin used for chip select in SPI communication. */
 #define LED_STATUS_POWER                    8					/* Pin used for power the status LED, indicating we have power. */
 #define LED_STATUS_HEATER                   5					/* Pin used for the heater status LED, indicating heater activity. */
 #define HEATER_OUTPUT_PIN                   9					/* Pin used for the PWM output to the heater circuit. */
@@ -82,7 +82,7 @@
 #define CJ125_INIT_REG1_STATUS_0            0x2888        /* The response of the init register when V=8 amplification is in use. */
 #define CJ125_INIT_REG1_STATUS_1            0x2889        /* The response of the init register when V=17 amplification is in use. */
 
-/* Define dac address MCP4725A2T-E/CH */
+/* Define DAC MCP4725 address MCP4725A2T-E/CH */
 #define DAC1_ADDR														0x64					/* Address for DAC 1 chip A0 tied to GND */
 #define DAC2_ADDR														0x65					/* Address for DAC 2 chip A0 tied to +5V */
 

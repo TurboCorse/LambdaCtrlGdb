@@ -95,7 +95,6 @@ int16_t CalcLambda(void)
 	{
 		float UAActVolt, UAOptVolt, UADelta;
 		float Amplifier;
-		int16_t Ip;
 		
 		UAActVolt = (float)In.UA * 5.0 / 1023.0; 
 		UAOptVolt = (float)Abl.UAOpt * 5.0 / 1023.0;	
@@ -107,8 +106,8 @@ int16_t CalcLambda(void)
 			Amplifier = 8.0;	
 		}
 		
-		Ip = (int16_t)((UADelta * CJ_PUMP_FACTOR) / (CJ_PUMP_RES_SHUNT * Amplifier) * 1000);	
-		ret = Interpolate(Ip);
+		Cj.IP = (int16_t)((UADelta * CJ_PUMP_FACTOR) / (CJ_PUMP_RES_SHUNT * Amplifier) * 1000);	
+		ret = Interpolate(Cj.IP);
 	}
 	
 	return ret;
