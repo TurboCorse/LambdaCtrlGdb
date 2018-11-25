@@ -90,6 +90,10 @@ void loop()
 	/* Sanity check's */
 	if (Abl.SupplyVoltage < USUP_MIN_ERR || Abl.SupplyVoltage > USUP_MAX_ERR)
 	{
+#if (DEBUG > 0)
+		Serial.print("Supply:");
+		Serial.println(Abl.SupplyVoltage / 1000.0);			
+#endif
 		Abl.Mode = PRESET;
 	}	
 	

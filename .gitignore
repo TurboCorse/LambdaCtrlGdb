@@ -272,3 +272,7 @@ __pycache__/
 *.rdb
 *.npd
 *.lck
+*.npd
+*.rdb
+*.json
+*.db
