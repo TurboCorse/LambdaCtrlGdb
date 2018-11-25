@@ -217,7 +217,7 @@ void Start(void)
 	Abl.Mode = START;
 	Abl.CjState = ComCj(CJ125_DIAG_REG_REQUEST);
 		
-	if(Abl.CjState == CJ125_DIAG_REG_STATUS_OK)
+	if ((Abl.CjState & CJ125_DIAG_REG_STATUS_OK) == CJ125_DIAG_REG_STATUS_OK)
 	{
 		n++;
 		if (n >= CJ_OK_CONF_CNT)
@@ -472,7 +472,7 @@ void Running(void)
 	{
 		Abl.CjState = ComCj(CJ125_DIAG_REG_REQUEST);	// Read cj diagnostic information
 		
-		if (Abl.CjState	!= CJ125_DIAG_REG_STATUS_OK)	// If not okay count up
+		if ((Abl.CjState & CJ125_DIAG_REG_STATUS_OK) != CJ125_DIAG_REG_STATUS_OK)	// If not okay count up
 		{
 			Abl.CjErrCnt++;
 			if (Abl.CjErrCnt > CJ_ERR_CNT)							// Error cnt to high?
