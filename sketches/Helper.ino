@@ -11,7 +11,7 @@
 
 #define CJ_LSU_ARRAY_SIZE	24	// Number of values within the array
 
-/* Constant tables to interpolate lambda from pump current 
+/* Constant tables to interpolate lambda from given pump current 
  * 
  *	Ip is datasheet value x 1000
  *	Lambda is datasheet value x 100

@@ -1,7 +1,7 @@
 /* LambdaCtrl.h
  *	
- *	This is the main header for this project.
- *	Here are all defines and function prototypes
+ *	This is the main header for the project.
+ *	Here are all defines, objects and function prototypes
  *
  *	Mario Schöbinger
  *	2018/11

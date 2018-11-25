@@ -266,3 +266,6 @@ __pycache__/
 *.rdb
 *.000
 *.001
+*.txt
+*.txt
+*.json

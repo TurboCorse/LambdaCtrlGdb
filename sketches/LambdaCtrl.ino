@@ -1,13 +1,19 @@
 /* LambdaCtrl.h
  *
  *	This programm is designed to build a standalone wideband lambda controller.
- *	It's based on BOSCH CJ125 which is the interface between the lambda  probe and the µC.
+ *	It's based on BOSCH CJ125 which is the interface between the lambda probe and the µC.
  *	
- *	It work with the NanoLambda Board from Ruzki
+ *	It work's with the NanoLambda Board from Ruzki.
  *
- *	Hardware (c) Ruzki
+ *	Hardware (c) Ruzki --> Georg Geraskin
  *	Software (c) Alfagta --> Mario Schöbinger
  *
+ *
+ *	LambdaCtrl is licensed under a
+ *	Creative Commons Attribution-NonCommercial 4.0 International License.
+ *
+ *	You should have received a copy of the license along with this
+ *	work. If not, see <http://creativecommons.org/licenses/by-nc/4.0/>.
  *
  **/
 
