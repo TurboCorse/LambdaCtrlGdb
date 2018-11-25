@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{803FD0C6-D64E-4E16-9DC3-1DAEC859A3D2}") = "LambdaCtrl", "LambdaCtrl.vgdbproj", "{DFB1A754-B42D-438E-99AB-3706B2159821}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Arduino Nano = Debug|Arduino Nano
+		Release|Arduino Nano = Release|Arduino Nano
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFB1A754-B42D-438E-99AB-3706B2159821}.Debug|Arduino Nano.ActiveCfg = Debug|Arduino Nano
+		{DFB1A754-B42D-438E-99AB-3706B2159821}.Debug|Arduino Nano.Build.0 = Debug|Arduino Nano
+		{DFB1A754-B42D-438E-99AB-3706B2159821}.Release|Arduino Nano.ActiveCfg = Release|Arduino Nano
+		{DFB1A754-B42D-438E-99AB-3706B2159821}.Release|Arduino Nano.Build.0 = Release|Arduino Nano
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC8740A4-23DD-43BC-82AC-0D9E9BC3B33E}
+	EndGlobalSection
+EndGlobal
