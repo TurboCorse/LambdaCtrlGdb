@@ -20,6 +20,7 @@
 #include "LambdaCtrl.h"
 
 /* Global variables */
+tCfg Cfg;
 tAbl Abl;
 tInputs In;
 tOutputs Out;
@@ -35,6 +36,9 @@ void setup()
 	memset((void*)&In, 0, sizeof(In));
 	memset((void*)&Out, 0, sizeof(Out));
 	memset((void*)&Cj, 0, sizeof(Cj));
+	
+	/* Read config from eeprom */
+	eeprom_read_block((void*)&Cfg, 0, sizeof(Cfg));
 	
 	/* Setup io's */
 	pinMode(CJ125_NSS_PIN, OUTPUT);
@@ -83,18 +87,16 @@ void loop()
 	/* Read tick */
 	Abl.Tick = millis();
 	
-	/* Calculate batterie and reference voltage */
-	Abl.SupplyVoltage = (int16_t)((uint32_t)In.USup * 24500UL / 1023UL);
-	Abl.RefVoltage = (int16_t)((uint32_t)In.URef * 5000UL / 1023UL);
-
-	/* Sanity check's */
-	if (Abl.SupplyVoltage < USUP_MIN_ERR || Abl.SupplyVoltage > USUP_MAX_ERR)
-	{
-#if (DEBUG > 0)
-		Serial.print("Supply:");
-		Serial.println(Abl.SupplyVoltage / 1000.0);			
-#endif
-		Abl.Mode = PRESET;
+	/* Reference voltage */
+	Abl.RefVoltage = (int16_t)((uint32_t)In.URef * 5000UL / 1023UL);	//This should be exactly 1.225V so we can calculate the adc offset from this
+	/* Calculate the voltage offset */
+	Abl.VoltageOffset = 1225 - Abl.RefVoltage;
+	/* Calculate battery voltage */
+	Abl.SupplyVoltage = Abl.VoltageOffset + (int16_t)((uint32_t)In.USup * 24500UL / 1023UL);
+	/* Sanity check for battery voltage */
+	if (CheckUBatt() == false)
+	{		
+		if (Abl.Mode != PRESET) Abl.Mode = PRESET;		
 	}	
 	
 	/* Jump to the current mode function */
@@ -147,6 +149,10 @@ void loop()
 	/* Update Serial port in debug mode */
 	if ((Abl.Tick - Abl.LastSerialTick) >= 150)
 	{
+		if (Abl.Mode == PRESET)
+		{
+			Out.Led1 ^= 1;
+		}
 		
 #if (DEBUG > 1)
 		Serial.print("UR:");
@@ -159,8 +165,18 @@ void loop()
 #if (DEBUG > 0)
 		Serial.print("Mode:");
 		Serial.println(ModeName[Abl.Mode]);	
-		Serial.print("Lambda:");
-		Serial.println(Abl.Lambda / 100.0);			
+		Serial.print("Supply:");
+		Serial.println(Abl.SupplyVoltage / 1000.0);	
+		if ((Abl.CjState & CJ125_DIAG_REG_STATUS_OK) == CJ125_DIAG_REG_STATUS_OK)
+		{
+			Serial.print("Lambda:");
+			Serial.println(Abl.Lambda / 100.0);					
+		}
+		else
+		{
+			Serial.print("Cj:");
+			Serial.println(Abl.CjState, HEX);
+		}
 #endif	
 		Abl.LastSerialTick = Abl.Tick;
 	}

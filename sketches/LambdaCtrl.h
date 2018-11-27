@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <FastPID.h>
 #include <Wire.h>
+#include <avr/eeprom.h>
 
 /* Define IO */
 #define CJ125_NSS_PIN                       10				/* Pin used for chip select in SPI communication. */
@@ -54,6 +55,8 @@
 
 #define USUP_MIN_OK								11000	// Min allowed supply voltage value
 #define USUP_MAX_OK								16500	// Max allowed supply voltage value
+
+#define USUP_ERR_CNT							2			//	Allowed error count, switch to preset if supply out of range for this count
 
 #define PROBE_CONDENSATE_PERIOD		6000	// xx milliseconds 
 #define PROBE_CONDENSATE_VOLT			1500	// xx millivolt during condensate heat
@@ -129,6 +132,19 @@ typedef enum
 
 typedef struct
 {
+	uint8_t StartConfCnt;
+	uint8_t CjConfCnt;
+	uint8_t CjCalSamples;
+	uint8_t CjCalPeriod;
+	uint8_t CjErrCnt;
+	uint8_t LambdaPeriod;
+	uint8_t SupplErrCnt;
+	uint16_t tCondensate;
+	uint16_t tPreheat;
+}tCfg;
+
+typedef struct
+{
 	uint8_t Mode;
 	uint16_t Flags;
 	uint32_t Tick;
@@ -137,7 +153,9 @@ typedef struct
 	uint32_t StartHeatTick;
 	uint32_t LastSerialTick;
 	uint32_t LastErrorTick;
+	int16_t VoltageOffset;
 	int16_t	SupplyVoltage;
+	uint8_t SupplyErrCnt;
 	int16_t RefVoltage;
 	uint16_t CjState;	
 	uint8_t CjMode;
@@ -202,6 +220,7 @@ extern void Condensate(void);
 extern void Preheat(void);
 extern void Running(void);
 extern void Error(void);
+extern uint8_t CheckUBatt(void);
 
 extern void Inputs(tInputs* In);
 extern void Outputs(tOutputs* Out);

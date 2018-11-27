@@ -81,6 +81,33 @@ void ComDac(uint8_t addr, uint16_t data)
 	Wire.endTransmission();						// End transmission
 }	
 
+/* Check if supply voltage is in allowed range */
+uint8_t CheckUBatt(void)
+{
+	uint8_t ret;
+	
+	if (Abl.SupplyVoltage < USUP_MIN_ERR || Abl.SupplyVoltage > USUP_MAX_ERR)
+	{
+		Abl.SupplyErrCnt++;
+		if (Abl.SupplyErrCnt > USUP_ERR_CNT)
+		{
+			ret = false;
+			Abl.SupplyErrCnt = 0;
+		}
+		else
+		{
+			ret = true;
+		}
+	}
+	else
+	{
+		Abl.SupplyErrCnt = 0;
+		ret = true;
+	}
+	
+	return ret;
+}
+
 /* Calculate Ip and lambda*/
 int16_t CalcLambda(void)
 {
@@ -180,7 +207,6 @@ void Preset(void)
 	Out.Dac2 = Out.Dac1;
 	Out.Wbl = VoltageTo8BitDac(LambdaToVoltage(100));
 	Out.Heater = 0;
-	Out.Led1 = LOW;
 	Out.Led2 = LOW;
 	
 	Abl.Flags = 0;
@@ -228,8 +254,6 @@ void Start(void)
 	}
 	else
 	{
-		Serial.print("Cj:");
-		Serial.println(Abl.CjState, HEX);
 		n = 0;
 	}	
 }	

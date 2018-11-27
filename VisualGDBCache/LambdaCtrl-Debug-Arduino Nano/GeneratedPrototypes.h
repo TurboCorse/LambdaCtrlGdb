@@ -9,6 +9,7 @@
 	void Outputs(tOutputs* Out); \
 	uint16_t ComCj(uint16_t data); \
 	void ComDac(uint8_t addr, uint16_t data); \
+	uint8_t CheckUBatt(void); \
 	int16_t CalcLambda(void); \
 	int16_t Interpolate(int16_t Ip); \
 	void Preset(void); \
